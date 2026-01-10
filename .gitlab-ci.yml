@@ -6,29 +6,65 @@ variables:
   IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
   GIT_DEPTH: "0"
 
-build_image:
+build_container:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:v1.23.2-debug
     entrypoint: [""]
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/dockerfile" --destination "${IMAGE_NAME}"
+  rules:
+    - if: $CI_COMMIT_TAG
 
-    - /kaniko/executor
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile "${CI_PROJECT_DIR}/dockerfile"
-      --destination "${IMAGE_NAME}"
+compile_windows:
+  stage: build
+  image: docker.io/library/rust:1.92
+  script:
+    - apt-get update && apt-get install -y mingw-w64
+    - rustup target add x86_64-pc-windows-gnu
+    - cargo build --release --target x86_64-pc-windows-gnu
+    - cp target/x86_64-pc-windows-gnu/release/terminal-vpet.exe ./terminal-vpet-windows.exe
+  artifacts:
+    paths:
+      - terminal-vpet-windows.exe
+    expire_in: never
+  rules:
+    - if: $CI_COMMIT_TAG
+
+compile_linux:
+  stage: build
+  image: docker.io/library/rust:1.92-alpine
+  script:
+    - apk add --no-cache musl-dev
+    - cargo build --release
+    - cp target/release/terminal-vpet ./terminal-vpet-linux
+  artifacts:
+    paths:
+      - terminal-vpet-linux
+    expire_in: never
   rules:
     - if: $CI_COMMIT_TAG
 
 create_release:
   stage: release
   image: registry.gitlab.com/gitlab-org/release-cli:latest
+  needs:
+    - job: compile_windows
+      artifacts: true
+    - job: compile_linux
+      artifacts: true
   script:
     - echo "Creating release for $CI_COMMIT_TAG"
   release:
-    name: "Release $CI_COMMIT_TAG"
-    tag_name: "$CI_COMMIT_TAG"
-    description: "Automated Rust build for $CI_COMMIT_TAG. Container image: $IMAGE_NAME"
+    name: 'Release $CI_COMMIT_TAG'
+    tag_name: '$CI_COMMIT_TAG'
+    description: 'Automated Rust build for $CI_COMMIT_TAG. You can find Linux and Windows binaries below.'
+    assets:
+      links:
+        - name: 'Download Windows (.exe)'
+          url: '${CI_PROJECT_URL}/-/jobs/artifacts/${CI_COMMIT_TAG}/raw/terminal-vpet-windows.exe?job=compile_windows'
+        - name: 'Download Linux (Binary)'
+          url: '${CI_PROJECT_URL}/-/jobs/artifacts/${CI_COMMIT_TAG}/raw/terminal-vpet-linux?job=compile_linux'
   rules:
     - if: $CI_COMMIT_TAG
