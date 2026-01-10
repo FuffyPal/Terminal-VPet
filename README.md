@@ -15,7 +15,7 @@ You can download the latest version of Terminal V-Pet directly from the releases
 
 ### Running with Docker
 
-If you prefer not to install Rust locally, you can build and run the application using Docker:
+If you prefer not to install Rust locally, you can build and run the application using [Docker](https://www.docker.com/):
 
 ```shell
 # Build the image
@@ -25,7 +25,7 @@ docker build -t terminal-vpet .
 docker run -it terminal-vpet
 ```
 
-If you prefer not to install Rust locally, you can build and run the application using Podman:
+If you prefer not to install Rust locally, you can build and run the application using [Podman](https://podman.io/docs/installation):
 
 ```shell
 # Build the image
