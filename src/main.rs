@@ -97,14 +97,14 @@ fn main() {
                 println!("Your pet is hungry!");
                 penalty += 1;
                 continue;
-            } else if hunger > 100 || hunger == 100 {
-                println!("Your pet is very full!");
-                healthy += 1;
-                continue;
             } else if hunger > 120 || hunger == 120 {
                 println!("Your pet is obese!");
                 healthy -= 1;
                 penalty += 1;
+                continue;
+            } else if hunger > 100 || hunger == 100 {
+                println!("Your pet is very full!");
+                healthy += 1;
                 continue;
             } else {
                 println!("Your pet is not hungry!");
