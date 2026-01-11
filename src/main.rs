@@ -1,12 +1,26 @@
 use std::io;
+use std::panic::PanicInfo;
 use std::thread::sleep;
 use std::time::Duration;
 
+struct Pet {
+    name: String,
+    healthy: i32,
+    hunger: i32,
+    penalty: i32,
+}
+
 fn main() {
-    let mut healthy = 100;
-    let mut hunger = 100;
-    let mut penalty = 0;
-    println!("healthy={healthy}, hunger={hunger}, penalty={penalty}");
+    let mut pet = Pet {
+        name: String::new(),
+        healthy: 100,
+        hunger: 100,
+        penalty: 0,
+    };
+    println!(
+        "healthy={}, \n hunger={}, \n penalty={}",
+        pet.healthy, pet.hunger, pet.penalty
+    );
     loop {
         println!("Enter pet name: ");
         let mut name = String::new();
@@ -20,7 +34,7 @@ fn main() {
             .read_line(&mut yorn)
             .expect("Failed to read line");
         let yorn = yorn.trim();
-        // println!("yorn: {}, unuzluk: {}", yorn, yorn.len()); // debug
+        // println!("yorn: {}, length: {}", yorn, yorn.len()); // debug
         if yorn == "y" || yorn == "Y" || yorn == "Yes" || yorn == "yes" {
             break;
         } else if yorn == "n" || yorn == "N" || yorn == "No" || yorn == "no" {
@@ -36,10 +50,10 @@ fn main() {
         sleep(time);
         let one_tick = time.as_secs();
         if one_tick > 1 || one_tick == 1 {
-            hunger = hunger - 1 - penalty;
+            pet.hunger = pet.hunger - 50 - pet.penalty;
             println!(
                 "Your Stat; \n Healthy:{} \n Hunger:{} \n Penalty:{}",
-                healthy, hunger, penalty
+                pet.healthy, pet.hunger, pet.penalty
             );
             loop {
                 let mut Food_selection = String::new();
@@ -53,7 +67,7 @@ fn main() {
                     || Food_selection == "y"
                     || Food_selection == "Y"
                 {
-                    hunger = hunger + 5;
+                    pet.hunger = pet.hunger + 5;
                     break;
                 } else if Food_selection == "no"
                     || Food_selection == "No"
@@ -61,7 +75,7 @@ fn main() {
                     || Food_selection == "n"
                     || Food_selection == "N"
                 {
-                    hunger = hunger - 5;
+                    pet.hunger = pet.hunger - 5;
                     break;
                 } else if Food_selection == "quit"
                     || Food_selection == "Quit"
@@ -85,43 +99,47 @@ fn main() {
                     panic!("Goodbye!");
                 } else {
                     println!("Invalid input!");
-                    continue;
                 }
             }
-            if hunger < 0 {
+            if pet.hunger < 0 || pet.hunger == 0 {
                 println!("Your pet is very hungry!");
-                healthy -= 1;
-                penalty += 1;
-                continue;
-            } else if hunger < 50 {
+                pet.healthy -= 50;
+                pet.penalty += 1;
+                // println!("Hunger Stat: {}", pet.hunger); // debug
+                // println!("Penalty Stat: {}", pet.penalty); // debug
+            } else if pet.hunger < 50 || pet.hunger == 50 {
                 println!("Your pet is hungry!");
-                penalty += 1;
-                continue;
-            } else if hunger > 120 || hunger == 120 {
+                pet.penalty += 1;
+                // println!("Hunger Stat: {}", pet.hunger); // debug
+                // println!("Penalty Stat: {}", pet.penalty); // debug
+            } else if pet.hunger > 120 || pet.hunger == 120 {
                 println!("Your pet is obese!");
-                healthy -= 1;
-                penalty += 1;
-                continue;
-            } else if hunger > 100 || hunger == 100 {
+                pet.healthy -= 1;
+                pet.penalty += 1;
+                // println!("Hunger Stat: {}", pet.hunger); // debug
+                // println!("Penalty Stat: {}", pet.penalty); // debug
+            } else if pet.hunger > 100 || pet.hunger == 100 {
                 println!("Your pet is very full!");
-                healthy += 1;
-                continue;
+                pet.healthy += 1;
+                // println!("Hunger Stat: {}", pet.hunger); // debug
+                // println!("Penalty Stat: {}", pet.penalty); // debug
             } else {
-                println!("Your pet is not hungry!");
-                continue;
+                println!("Hunger");
             }
-            if healthy == 0 {
+            if pet.healthy == 0 {
                 println!("Your pet is dead!");
-                break;
-            } else if healthy < 50 {
+                panic!("Goodbye!");
+            } else if pet.healthy < 50 || pet.healthy == 50 {
                 println!("Your pet is sick!");
-                continue;
-            } else if healthy < 75 {
+                // println!("Healthy Stat: {}", pet.healthy); // debug
+            } else if pet.healthy < 75 || pet.healthy == 75 {
                 println!("Your pet is fine!");
-                continue;
-            } else {
+                // println!("Healthy Stat: {}", pet.healthy); // debug
+            } else if pet.healthy > 100 || pet.healthy == 100 {
                 println!("Your pet is very healthy!");
-                continue;
+                // println!("Healthy Stat: {}", pet.healthy); // debug
+            } else {
+                println!("Health!");
             }
         } else {
             println!("hmm what the fuckkk howw!");
