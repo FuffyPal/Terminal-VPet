@@ -103,7 +103,7 @@ fn main() {
             }
             if pet.hunger < 0 || pet.hunger == 0 {
                 println!("Your pet is very hungry!");
-                pet.healthy -= 50;
+                pet.healthy -= 1;
                 pet.penalty += 1;
                 // println!("Hunger Stat: {}", pet.hunger); // debug
                 // println!("Penalty Stat: {}", pet.penalty); // debug
