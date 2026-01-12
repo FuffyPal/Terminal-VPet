@@ -55,14 +55,14 @@ fn main() {
         if one_tick > 1 || one_tick == 1 {
             pet.hunger = pet.hunger - 1 - pet.penalty;
             // println!("{}", pet.healthy); // debug
-            println!("obesity {}", pet.obesity); // debug
-            println!("starvation {}", pet.starvation); // debug
-            println!("penalty {}", pet.penalty); // debug
+            //println!("obesity {}", pet.obesity); // debug
+            // println!("starvation {}", pet.starvation); // debug
+            // println!("penalty {}", pet.penalty); // debug
             pet.healthy = pet.healthy - pet.obesity - pet.starvation - pet.penalty;
             // println!("{}", pet.healthy); // debug
-            println!("obesity {}", pet.obesity); // debug
-            println!("starvation {}", pet.starvation); // debug
-            println!("penalty {}", pet.penalty); // debug
+            // println!("obesity {}", pet.obesity); // debug
+            // println!("starvation {}", pet.starvation); // debug
+            // println!("penalty {}", pet.penalty); // debug
             // println!("{}", pet.hunger); // debug
             if pet.healthy < 0 {
                 pet.healthy = 0;
