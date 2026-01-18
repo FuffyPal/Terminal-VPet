@@ -30,6 +30,83 @@ impl Pet {
     fn weaken(&mut self, weaken: i32) {
         self.starvation -= weaken;
     }
+    fn clamp_hunger(&mut self) {
+        if self.hunger < 0 {
+            self.hunger = 0;
+            // println!("{}", pet.hunger); // debug
+        } else if self.hunger > 100 {
+            self.hunger = 100;
+            // println!("{}", pet.hunger); // debug
+        } else {
+        }
+    }
+    fn clamp_health(&mut self) {
+        if self.healthy < 0 {
+            self.healthy = 0;
+            // println!("{}", self.healthy); // debug
+        } else {
+        }
+    }
+    fn status_check(&mut self) {
+        self.clamp_health();
+        self.clamp_hunger();
+        if self.healthy == 0 {
+            println!("Your pet is dead!");
+            panic!("Goodbye!");
+        } else if self.healthy < 50 || self.healthy == 50 {
+            println!("Your pet is sick!");
+            // println!("Healthy Stat: {}", self.healthy); // debug
+        } else if self.healthy < 75 || self.healthy == 75 {
+            println!("Your pet is fine!");
+            // println!("Healthy Stat: {}", pet.healthy); // debug
+        } else if self.healthy > 100 || self.healthy == 100 {
+            println!("Your pet is very healthy!");
+            // println!("Healthy Stat: {}", self.healthy); // debug
+        } else {
+            println!("Error: Invalid healthy value!");
+        }
+        if self.hunger == 0 {
+            println!("Your pet is very hungry!");
+            self.weaken(1);
+            self.weight(1);
+            // println!("Hunger Stat: {}", pet.hunger); // debug
+            // println!("Penalty Stat: {}", pet.penalty); // debug
+        } else if self.hunger < 50 || self.hunger == 50 {
+            println!("Your pet is hungry!");
+            self.fine(1);
+            // println!("Hunger Stat: {}", pet.hunger); // debug
+            // println!("Penalty Stat: {}", pet.penalty); // debug
+        } else if self.hunger == 100 {
+            println!("Your pet is very obese!");
+            self.heal(1);
+            self.fine(1);
+            self.weight(1);
+            // println!("Hunger Stat: {}", pet.hunger); // debug
+            // println!("Penalty Stat: {}", pet.penalty); // debug
+        } else if self.hunger < 75 {
+            println!("Your pet is normal!");
+            self.heal(1);
+            self.fine(-1);
+            // println!("Hunger Stat: {}", pet.hunger); // debug
+            // println!("Penalty Stat: {}", pet.penalty); // debug
+        } else if self.hunger > 75 || self.hunger == 75 {
+            println!("Your pet is normal!");
+            self.heal(1);
+            self.fine(-1);
+            // println!("Hunger Stat: {}", pet.hunger); // debug
+            // println!("Penalty Stat: {}", pet.penalty); // debug
+        } else {
+            println!("Error: Invalid hunger level");
+        }
+    }
+    fn pass_time(&mut self) {
+        self.hunger = self.hunger - 1 - self.penalty;
+        let damage = self.obesity + self.starvation + self.penalty;
+        self.damage(damage);
+        self.clamp_health();
+        self.clamp_hunger();
+        self.status_check();
+    }
 }
 fn main() {
     let mut pet = Pet {
@@ -44,6 +121,7 @@ fn main() {
         "healthy={}, \n hunger={}, \n penalty={}",
         pet.healthy, pet.hunger, pet.penalty
     );
+    // Pet Name Area
     loop {
         println!("Enter pet name: ");
         let mut name = String::new();
@@ -68,42 +146,13 @@ fn main() {
             continue;
         }
     }
+    // Main Area
     loop {
         let time = Duration::from_secs(5);
         sleep(time);
         let one_tick = time.as_secs();
         if one_tick > 1 || one_tick == 1 {
-            pet.hunger = pet.hunger - 1 - pet.penalty;
-            let damage = pet.obesity + pet.starvation + pet.penalty;
-            pet.damage(damage);
-            if pet.healthy < 0 {
-                pet.healthy = 0;
-                // println!("{}", pet.healthy); // debug
-            } else {
-            }
-            if pet.healthy == 0 {
-                println!("Your pet is dead!");
-                panic!("Goodbye!");
-            } else if pet.healthy < 50 || pet.healthy == 50 {
-                println!("Your pet is sick!");
-                // println!("Healthy Stat: {}", pet.healthy); // debug
-            } else if pet.healthy < 75 || pet.healthy == 75 {
-                println!("Your pet is fine!");
-                // println!("Healthy Stat: {}", pet.healthy); // debug
-            } else if pet.healthy > 100 || pet.healthy == 100 {
-                println!("Your pet is very healthy!");
-                // println!("Healthy Stat: {}", pet.healthy); // debug
-            } else {
-                println!("Health!");
-            }
-            if pet.hunger < 0 {
-                pet.hunger = 0;
-                // println!("{}", pet.hunger); // debug
-            } else if pet.hunger > 100 {
-                pet.hunger = 100;
-                // println!("{}", pet.hunger); // debug
-            } else {
-            }
+            pet.pass_time();
             println!(
                 "Your Stat; \n Healthy:{} \n Hunger:{} \n Penalty:{}",
                 pet.healthy, pet.hunger, pet.penalty
@@ -155,47 +204,6 @@ fn main() {
                 } else {
                     println!("Invalid input!");
                 }
-            }
-            if pet.hunger < 0 {
-                pet.hunger = 0;
-                // println!("{}", pet.hunger); // debug
-            } else if pet.hunger > 100 {
-                pet.hunger = 100;
-                // println!("{}", pet.hunger); // debug
-            } else {
-            }
-            if pet.hunger == 0 {
-                println!("Your pet is very hungry!");
-                pet.weaken(1);
-                pet.weight(1);
-                // println!("Hunger Stat: {}", pet.hunger); // debug
-                // println!("Penalty Stat: {}", pet.penalty); // debug
-            } else if pet.hunger < 50 || pet.hunger == 50 {
-                println!("Your pet is hungry!");
-                pet.fine(1);
-                // println!("Hunger Stat: {}", pet.hunger); // debug
-                // println!("Penalty Stat: {}", pet.penalty); // debug
-            } else if pet.hunger == 100 {
-                println!("Your pet is very obese!");
-                pet.heal(1);
-                pet.fine(1);
-                pet.weight(1);
-                // println!("Hunger Stat: {}", pet.hunger); // debug
-                // println!("Penalty Stat: {}", pet.penalty); // debug
-            } else if pet.hunger < 75 {
-                println!("Your pet is normal!");
-                pet.heal(1);
-                pet.fine(-1);
-                // println!("Hunger Stat: {}", pet.hunger); // debug
-                // println!("Penalty Stat: {}", pet.penalty); // debug
-            } else if pet.hunger > 75 || pet.hunger == 75 {
-                println!("Your pet is normal!");
-                pet.heal(1);
-                pet.fine(-1);
-                // println!("Hunger Stat: {}", pet.hunger); // debug
-                // println!("Penalty Stat: {}", pet.penalty); // debug
-            } else {
-                println!("Hunger");
             }
         } else {
             println!("hmm what the fuckkk howw!");
