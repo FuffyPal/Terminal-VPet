@@ -1,6 +1,4 @@
-use std::io;
-use std::thread::sleep;
-use std::time::Duration;
+#![allow(dead_code)]
 
 struct Pet {
     name: String,
@@ -95,85 +93,5 @@ impl Pet {
         self.clamp_health();
         self.clamp_hunger();
         self.status_check();
-    }
-}
-fn main() {
-    let mut pet = Pet {
-        name: String::new(),
-        healthy: 100,
-        hunger: 100,
-        penalty: 0,
-        starvation: 0,
-        obesity: 0,
-    };
-    println!(
-        "healthy={}, \n hunger={}, \n penalty={}",
-        pet.healthy, pet.hunger, pet.penalty
-    );
-    // Pet Name Area
-    loop {
-        println!("Enter pet name: ");
-        let mut name = String::new();
-        io::stdin()
-            .read_line(&mut name)
-            .expect("Failed to read line");
-        println!("New Pet name: {name}");
-        println!("y/n enter: ");
-        let mut yorn = String::new();
-        io::stdin()
-            .read_line(&mut yorn)
-            .expect("Failed to read line");
-        match yorn.trim().to_lowercase().as_str() {
-            "y" | "yes" => break,
-            "n" | "no" => {
-                println!("Okey again write the pet name.");
-                continue;
-            },
-            _ => {
-                println!("Invalid input!");
-                continue;
-            }
-        };
-    }
-    // Main Area
-    loop {
-        let time = Duration::from_secs(5);
-        sleep(time);
-        let one_tick = time.as_secs();
-        if one_tick >= 1 {
-            pet.pass_time();
-            println!(
-                "Your Stat; \n Healthy:{} \n Hunger:{} \n Penalty:{}",
-                pet.healthy, pet.hunger, pet.penalty
-            );
-            loop {
-                let mut food_selection = String::new();
-                io::stdin()
-                    .read_line(&mut food_selection)
-                    .expect("Failed to read line");
-                println!("Your Pet is Hungery: {}", pet.hunger);
-                match food_selection.trim().to_lowercase().as_str() {
-                    "y" | "yes" => {
-                        pet.eat(5);
-                        //println!("{}", pet.hunger); // debug
-                        break;
-                    }
-                    "n" | "no" => {
-                        println!("Okey again write the pet name.");
-                        continue;
-                    },
-                    "q" | "quit" | "e" | "exit" => {
-                        panic!("Goodbye!");
-                    },
-                    _ => {
-                        println!("Invalid input. Please enter 'yes' or 'no'.");
-                        continue;
-                    }
-                }
-            }
-        } else {
-            println!("hmm what the fuckkk howw!");
-            break;
-        }
     }
 }
