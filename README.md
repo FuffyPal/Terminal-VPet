@@ -11,7 +11,7 @@
 ## Installation & Usage
 
 ### Download Pre-built Binaries
-You can download the latest version of Terminal V-Pet directly from the releases page: [Download Releases](https://gitlab.com/FluffyPal/terminal-vpet/-/releases)
+You can download the latest version of Terminal V-Pet directly from the releases page: [Download Releases](https://gitlab.com/FluffyPal/vpet_core/-/releases)
 
 ### Running with Docker
 
