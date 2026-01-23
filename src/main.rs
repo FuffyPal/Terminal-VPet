@@ -31,21 +31,10 @@ impl Pet {
         self.starvation -= weaken;
     }
     fn clamp_hunger(&mut self) {
-        if self.hunger < 0 {
-            self.hunger = 0;
-            // println!("{}", pet.hunger); // debug
-        } else if self.hunger > 100 {
-            self.hunger = 100;
-            // println!("{}", pet.hunger); // debug
-        } else {
-        }
+        self.hunger = self.hunger.clamp(0, 100);
     }
     fn clamp_health(&mut self) {
-        if self.healthy < 0 {
-            self.healthy = 0;
-            // println!("{}", self.healthy); // debug
-        } else {
-        }
+        self.healthy = self.healthy.clamp(0, 100);
     }
     fn status_check(&mut self) {
         self.clamp_health();
