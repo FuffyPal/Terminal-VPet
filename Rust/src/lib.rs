@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+use godot::prelude::*;
 
 struct Pet {
     name: String,
@@ -94,4 +94,8 @@ impl Pet {
         self.clamp_hunger();
         self.status_check();
     }
+}
+
+fn main() {
+    println!("hello world")
 }
