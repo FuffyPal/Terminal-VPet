@@ -134,24 +134,24 @@ fn main() {
         io::stdin()
             .read_line(&mut yorn)
             .expect("Failed to read line");
-        let yorn = yorn.trim();
-        // println!("yorn: {}, length: {}", yorn, yorn.len()); // debug
-        if yorn == "y" || yorn == "Y" || yorn == "Yes" || yorn == "yes" {
-            break;
-        } else if yorn == "n" || yorn == "N" || yorn == "No" || yorn == "no" {
-            println!("Okey again write the pet name.");
-            continue;
-        } else {
-            println!("Invalid input!");
-            continue;
-        }
+        match yorn.trim().to_lowercase().as_str() {
+            "y" | "yes" => break,
+            "n" | "no" => {
+                println!("Okey again write the pet name.");
+                continue;
+            },
+            _ => {
+                println!("Invalid input!");
+                continue;
+            }
+        };
     }
     // Main Area
     loop {
         let time = Duration::from_secs(5);
         sleep(time);
         let one_tick = time.as_secs();
-        if one_tick > 1 || one_tick == 1 {
+        if one_tick >= 1 {
             pet.pass_time();
             println!(
                 "Your Stat; \n Healthy:{} \n Hunger:{} \n Penalty:{}",
@@ -162,47 +162,24 @@ fn main() {
                 io::stdin()
                     .read_line(&mut food_selection)
                     .expect("Failed to read line");
-                let food_selection = food_selection.trim();
                 println!("Your Pet is Hungery: {}", pet.hunger);
-                if food_selection == "yes"
-                    || food_selection == "Yes"
-                    || food_selection == "YES"
-                    || food_selection == "y"
-                    || food_selection == "Y"
-                {
-                    pet.eat(5);
-                    //println!("{}", pet.hunger); // debug
-                    break;
-                } else if food_selection == "no"
-                    || food_selection == "No"
-                    || food_selection == "NO"
-                    || food_selection == "n"
-                    || food_selection == "N"
-                {
-                    // println!("{}", pet.hunger); // debug
-                    break;
-                } else if food_selection == "quit"
-                    || food_selection == "Quit"
-                    || food_selection == "QUIT"
-                    || food_selection == "q"
-                    || food_selection == "Q"
-                    || food_selection == "exit"
-                    || food_selection == "Exit"
-                    || food_selection == "EXIT"
-                    || food_selection == "e"
-                    || food_selection == "E"
-                    || food_selection == "end"
-                    || food_selection == "End"
-                    || food_selection == "END"
-                    || food_selection == "stop"
-                    || food_selection == "Stop"
-                    || food_selection == "STOP"
-                    || food_selection == "s"
-                    || food_selection == "S"
-                {
-                    panic!("Goodbye!");
-                } else {
-                    println!("Invalid input!");
+                match food_selection.trim().to_lowercase().as_str() {
+                    "y" | "yes" => {
+                        pet.eat(5);
+                        //println!("{}", pet.hunger); // debug
+                        break;
+                    }
+                    "n" | "no" => {
+                        println!("Okey again write the pet name.");
+                        continue;
+                    },
+                    "q" | "quit" | "e" | "exit" => {
+                        panic!("Goodbye!");
+                    },
+                    _ => {
+                        println!("Invalid input. Please enter 'yes' or 'no'.");
+                        continue;
+                    }
                 }
             }
         } else {
