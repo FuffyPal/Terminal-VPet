@@ -53,13 +53,13 @@ impl Pet {
         if self.healthy == 0 {
             println!("Your pet is dead!");
             panic!("Goodbye!");
-        } else if self.healthy < 50 || self.healthy == 50 {
+        } else if self.healthy <= 50 {
             println!("Your pet is sick!");
             // println!("Healthy Stat: {}", self.healthy); // debug
-        } else if self.healthy < 75 || self.healthy == 75 {
+        } else if self.healthy <= 75 {
             println!("Your pet is fine!");
             // println!("Healthy Stat: {}", pet.healthy); // debug
-        } else if self.healthy > 100 || self.healthy == 100 {
+        } else if self.healthy <= 100 {
             println!("Your pet is very healthy!");
             // println!("Healthy Stat: {}", self.healthy); // debug
         } else {
@@ -71,7 +71,7 @@ impl Pet {
             self.weight(1);
             // println!("Hunger Stat: {}", pet.hunger); // debug
             // println!("Penalty Stat: {}", pet.penalty); // debug
-        } else if self.hunger < 50 || self.hunger == 50 {
+        } else if self.hunger <= 50 {
             println!("Your pet is hungry!");
             self.fine(1);
             // println!("Hunger Stat: {}", pet.hunger); // debug
@@ -89,7 +89,7 @@ impl Pet {
             self.fine(-1);
             // println!("Hunger Stat: {}", pet.hunger); // debug
             // println!("Penalty Stat: {}", pet.penalty); // debug
-        } else if self.hunger > 75 || self.hunger == 75 {
+        } else if self.hunger >= 75 {
             println!("Your pet is normal!");
             self.heal(1);
             self.fine(-1);
@@ -158,47 +158,47 @@ fn main() {
                 pet.healthy, pet.hunger, pet.penalty
             );
             loop {
-                let mut Food_selection = String::new();
+                let mut food_selection = String::new();
                 io::stdin()
-                    .read_line(&mut Food_selection)
+                    .read_line(&mut food_selection)
                     .expect("Failed to read line");
-                let Food_selection = Food_selection.trim();
+                let food_selection = food_selection.trim();
                 println!("Your Pet is Hungery: {}", pet.hunger);
-                if Food_selection == "yes"
-                    || Food_selection == "Yes"
-                    || Food_selection == "YES"
-                    || Food_selection == "y"
-                    || Food_selection == "Y"
+                if food_selection == "yes"
+                    || food_selection == "Yes"
+                    || food_selection == "YES"
+                    || food_selection == "y"
+                    || food_selection == "Y"
                 {
                     pet.eat(5);
                     //println!("{}", pet.hunger); // debug
                     break;
-                } else if Food_selection == "no"
-                    || Food_selection == "No"
-                    || Food_selection == "NO"
-                    || Food_selection == "n"
-                    || Food_selection == "N"
+                } else if food_selection == "no"
+                    || food_selection == "No"
+                    || food_selection == "NO"
+                    || food_selection == "n"
+                    || food_selection == "N"
                 {
                     // println!("{}", pet.hunger); // debug
                     break;
-                } else if Food_selection == "quit"
-                    || Food_selection == "Quit"
-                    || Food_selection == "QUIT"
-                    || Food_selection == "q"
-                    || Food_selection == "Q"
-                    || Food_selection == "exit"
-                    || Food_selection == "Exit"
-                    || Food_selection == "EXIT"
-                    || Food_selection == "e"
-                    || Food_selection == "E"
-                    || Food_selection == "end"
-                    || Food_selection == "End"
-                    || Food_selection == "END"
-                    || Food_selection == "stop"
-                    || Food_selection == "Stop"
-                    || Food_selection == "STOP"
-                    || Food_selection == "s"
-                    || Food_selection == "S"
+                } else if food_selection == "quit"
+                    || food_selection == "Quit"
+                    || food_selection == "QUIT"
+                    || food_selection == "q"
+                    || food_selection == "Q"
+                    || food_selection == "exit"
+                    || food_selection == "Exit"
+                    || food_selection == "EXIT"
+                    || food_selection == "e"
+                    || food_selection == "E"
+                    || food_selection == "end"
+                    || food_selection == "End"
+                    || food_selection == "END"
+                    || food_selection == "stop"
+                    || food_selection == "Stop"
+                    || food_selection == "STOP"
+                    || food_selection == "s"
+                    || food_selection == "S"
                 {
                     panic!("Goodbye!");
                 } else {
