@@ -50,53 +50,53 @@ impl Pet {
     fn status_check(&mut self) {
         self.clamp_health();
         self.clamp_hunger();
-        if self.healthy == 0 {
-            println!("Your pet is dead!");
-            panic!("Goodbye!");
-        } else if self.healthy <= 50 {
-            println!("Your pet is sick!");
-            // println!("Healthy Stat: {}", self.healthy); // debug
-        } else if self.healthy <= 75 {
-            println!("Your pet is fine!");
-            // println!("Healthy Stat: {}", pet.healthy); // debug
-        } else if self.healthy <= 100 {
-            println!("Your pet is very healthy!");
-            // println!("Healthy Stat: {}", self.healthy); // debug
-        } else {
-            println!("Error: Invalid healthy value!");
+        match self.healthy {
+            0 => {
+                println!("Your pet is dead!");
+                panic!("Goodbye!");
+            },
+            1..=50 => {
+                println!("Your pet is sick!");
+                // println!("Healthy Stat: {}", self.healthy); // debug
+            },
+            51..=75 => {
+                println!("Your pet is fine!");
+                // println!("Healthy Stat: {}", pet.healthy); // debug
+            },
+            76..=100 => {
+                println!("Your pet is very healthy!");
+                // println!("Healthy Stat: {}", self.healthy); // debug
+            },
+            _ => {
+                println!("Error: Invalid healthy value!");
+            }
         }
-        if self.hunger == 0 {
-            println!("Your pet is very hungry!");
-            self.weaken(1);
-            self.weight(1);
-            // println!("Hunger Stat: {}", pet.hunger); // debug
-            // println!("Penalty Stat: {}", pet.penalty); // debug
-        } else if self.hunger <= 50 {
-            println!("Your pet is hungry!");
-            self.fine(1);
-            // println!("Hunger Stat: {}", pet.hunger); // debug
-            // println!("Penalty Stat: {}", pet.penalty); // debug
-        } else if self.hunger == 100 {
-            println!("Your pet is very obese!");
-            self.heal(1);
-            self.fine(1);
-            self.weight(1);
-            // println!("Hunger Stat: {}", pet.hunger); // debug
-            // println!("Penalty Stat: {}", pet.penalty); // debug
-        } else if self.hunger < 75 {
-            println!("Your pet is normal!");
-            self.heal(1);
-            self.fine(-1);
-            // println!("Hunger Stat: {}", pet.hunger); // debug
-            // println!("Penalty Stat: {}", pet.penalty); // debug
-        } else if self.hunger >= 75 {
-            println!("Your pet is normal!");
-            self.heal(1);
-            self.fine(-1);
-            // println!("Hunger Stat: {}", pet.hunger); // debug
-            // println!("Penalty Stat: {}", pet.penalty); // debug
-        } else {
-            println!("Error: Invalid hunger level");
+        match self.hunger {
+            0 => {
+                println!("Your pet is very hungry!");
+                self.weaken(1);
+                self.weight(1);
+                // println!("Hunger Stat: {}", pet.hunger); // debug
+                // println!("Penalty Stat: {}", pet.penalty); // debug
+            },
+            1..=50 => {
+                println!("Your pet is hungry!");
+                self.fine(1);
+                // println!("Hunger Stat: {}", pet.hunger); // debug
+            },
+            51..=75 => {
+                println!("Your pet is fine!");
+                self.fine(1);
+                // println!("Hunger Stat: {}", pet.hunger); // debug
+            },
+            76..=100 => {
+                println!("Your pet is very healthy!");
+                self.fine(1);
+                // println!("Hunger Stat: {}", pet.hunger); // debug
+            },
+            _ => {
+                println!("Error: Invalid hunger value!");
+            }
         }
     }
     fn pass_time(&mut self) {
