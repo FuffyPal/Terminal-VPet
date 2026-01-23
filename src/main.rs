@@ -75,12 +75,12 @@ impl Pet {
             },
             51..=75 => {
                 println!("Your pet is fine!");
-                self.fine(1);
+                self.fine(-1);
                 // println!("Hunger Stat: {}", pet.hunger); // debug
             },
             76..=100 => {
                 println!("Your pet is very healthy!");
-                self.fine(1);
+                self.fine(-1);
                 // println!("Hunger Stat: {}", pet.hunger); // debug
             },
             _ => {
