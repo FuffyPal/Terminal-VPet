@@ -2,22 +2,26 @@ package main
 
 import "fmt"
 
-func (p *Pet) eat() {
+func (p *Pet) eat(eat int) {
 	if p.hunger > 0 {
 		p.hunger -= 1
 	}
 }
 
-// func (p *Pet) demage() {
+func (p *Pet) demage(demage int) {
+	if p.healty > 0 {
+		p.healty = 1
+	}
+}
 
-// }
-
-// func (p *Pet) heal() {
-
-// }
+func (p *Pet) heal(heal int) {
+	if p.healty > 0 {
+		p.healty += 1
+	}
+}
 
 func (p *Pet) check() {
-	if p.healty > 0 {
+	if p.healty == 0 {
 		p.life = false
 	}
 }
