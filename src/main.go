@@ -31,6 +31,24 @@ func main() {
 	statusFlag := flag.Bool("status", false, "Pet is status")
 	versionFlag := flag.Bool("version", false, "Apps version")
 	eatFlag := flag.Int("eat", 0, "pet eating x(1,2,3,4)")
+	flag.Usage = func() {
+		fmt.Println("\n=======================================================")
+		fmt.Println("       🐾  VIRTUAL PET GAME (", version, ") CLI HELP  🐾")
+		fmt.Println("=======================================================")
+		fmt.Println("Usage:")
+		fmt.Println("  go run . [options]\n")
+		fmt.Println("Options:")
+		fmt.Println("  --name <string>   💡 Sets your pet's name (e.g., --name=pamuk)")
+		fmt.Println("  --status          📊 Shows current stats of your pet and exits")
+		fmt.Println("  --food <1-4>      🍖 Feeds your pet with a food from the market:")
+		fmt.Println("                      [1] Omlet 🍳  [2] Fish 🐟")
+		fmt.Println("                      [3] Meat 🥩   [4] Apple 🍎")
+		fmt.Println("=======================================================")
+		fmt.Println("Examples:")
+		fmt.Println("  go run . --name=boncuk --status")
+		fmt.Println("  go run . --food=1")
+		fmt.Println("=======================================================\n")
+	}
 	flag.Parse()
 
 	myPet := Pet{healty: 100, hunger: 0, life: true}
