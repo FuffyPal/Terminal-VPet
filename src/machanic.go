@@ -3,34 +3,34 @@ package main
 import "fmt"
 
 func (p *Pet) eat(eat int) {
-	if p.hunger > 0 {
+	if p.hunger > minhungry {
 		p.hunger -= eat
-		if p.hunger < 0 {
-			p.hunger = 0
+		if p.hunger < minhungry {
+			p.hunger = minhungry
 		}
 	}
 }
 
 func (p *Pet) demage(demage int) {
-	if p.healty > 0 {
+	if p.healty > minhungry {
 		p.healty = demage
-		if p.healty < 0 {
-			p.healty = 0
+		if p.healty < minhealthy {
+			p.healty = minhealthy
 		}
 	}
 }
 
 func (p *Pet) heal(heal int) {
-	if p.healty > 0 {
+	if p.healty > minhealthy {
 		p.healty += heal
-		if p.healty > 100 {
-			p.healty = 100
+		if p.healty > maxhealthy {
+			p.healty = maxhealthy
 		}
 	}
 }
 
 func (p *Pet) check() {
-	if p.healty == 0 {
+	if p.healty == minhealthy {
 		p.life = false
 	}
 }
