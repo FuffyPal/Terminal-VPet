@@ -4,19 +4,28 @@ import "fmt"
 
 func (p *Pet) eat(eat int) {
 	if p.hunger > 0 {
-		p.hunger -= 1
+		p.hunger -= eat
+		if p.hunger < 0 {
+			p.hunger = 0
+		}
 	}
 }
 
 func (p *Pet) demage(demage int) {
 	if p.healty > 0 {
-		p.healty = 1
+		p.healty = demage
+		if p.healty < 0 {
+			p.healty = 0
+		}
 	}
 }
 
 func (p *Pet) heal(heal int) {
 	if p.healty > 0 {
-		p.healty += 1
+		p.healty += heal
+		if p.healty > 100 {
+			p.healty = 100
+		}
 	}
 }
 
