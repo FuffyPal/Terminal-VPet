@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 )
 
 const (
-	version    = "0.1.0"
+	version    = "0.3.0"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -23,6 +24,7 @@ type Pet struct {
 func main() {
 	nameFlag := flag.String("name", "", "Pet is name")
 	statusFlag := flag.Bool("status", false, "Pet is status")
+	versionFlag := flag.Bool("version", false, "Apps version")
 	flag.Parse()
 	myPet := Pet{healty: 100, hunger: 0, life: true}
 	if *nameFlag != "" {
@@ -32,6 +34,11 @@ func main() {
 	if *statusFlag {
 		myPet.status()
 		return
+	}
+
+	if *versionFlag {
+		fmt.Printf("vpet version: %s \n", version)
+		os.Exit(0)
 	}
 
 	fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.name)
