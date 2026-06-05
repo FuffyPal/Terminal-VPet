@@ -14,11 +14,12 @@ import "fmt"
 type Pet struct {
 	name   string
 	healty int
-	hungry int
+	hunger int
+	life   bool
 }
 
 func main() {
-	fmt.Println("Hello, World")
-	myPet := Pet{name: "bal", healty: 100, hungry: 100}
+	myPet := Pet{healty: 100, hunger: 0, life: true}
+	fmt.Scanln(&myPet.name)
 	myPet.status()
 }
