@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func (p *Pet) eat(eat int) {
 	if p.hunger > minhungry {
@@ -32,6 +35,8 @@ func (p *Pet) heal(heal int) {
 func (p *Pet) check() {
 	if p.healty == minhealthy {
 		p.life = false
+		fmt.Println("Pet is die")
+		os.Exit(0)
 	}
 }
 
