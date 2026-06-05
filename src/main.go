@@ -21,12 +21,35 @@ type Pet struct {
 	life   bool
 }
 
+type Food struct {
+	name   string
+	energy int
+}
+
 func main() {
 	nameFlag := flag.String("name", "", "Pet is name")
 	statusFlag := flag.Bool("status", false, "Pet is status")
 	versionFlag := flag.Bool("version", false, "Apps version")
+	eatFlag := flag.Int("eat", 0, "pet eating x(1,2,3,4)")
 	flag.Parse()
+
 	myPet := Pet{healty: 100, hunger: 0, life: true}
+	var foodList = []Food{
+		{name: "Omlet 🍳", energy: 20},
+		{name: "Fish 🐟", energy: 15},
+		{name: "Meat 🥩", energy: 35},
+		{name: "Apple 🍎", energy: 5},
+	}
+	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
+		choosfood := foodList[*eatFlag-1]
+
+		fmt.Printf("\nYou fed %s with %s!\n", myPet.name, choosfood.name)
+
+		myPet.eat(choosfood.energy)
+	} else if *eatFlag != 0 {
+		fmt.Println("Invalid choice! Your pet stayed hungry.")
+	}
+
 	if *nameFlag != "" {
 		myPet.name = *nameFlag
 	}
@@ -42,5 +65,4 @@ func main() {
 	}
 
 	fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.name)
-	myPet.status()
 }
