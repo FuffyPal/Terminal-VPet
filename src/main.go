@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	version    = "0.5.5"
+	version    = "0.6.0"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100

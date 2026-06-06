@@ -56,4 +56,5 @@ func (p *Pet) tick(y int) {
 	if p.hunger >= maxhungry {
 		p.hunger = maxhungry
 	}
+	p.check()
 }
