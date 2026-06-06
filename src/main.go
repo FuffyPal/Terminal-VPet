@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	version    = "0.4.0"
+	version    = "0.4.1"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -58,15 +58,6 @@ func main() {
 		{name: "Meat 🥩", energy: 35},
 		{name: "Apple 🍎", energy: 5},
 	}
-	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
-		choosfood := foodList[*eatFlag-1]
-
-		fmt.Printf("\nYou fed %s with %s!\n", myPet.name, choosfood.name)
-
-		myPet.eat(choosfood.energy)
-	} else if *eatFlag != 0 {
-		fmt.Println("Invalid choice! Your pet stayed hungry.")
-	}
 
 	if *nameFlag != "" {
 		myPet.name = *nameFlag
@@ -75,6 +66,16 @@ func main() {
 	if *statusFlag {
 		myPet.status()
 		return
+	}
+
+	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
+		choosfood := foodList[*eatFlag-1]
+
+		fmt.Printf("\nYou fed %s with %s!\n", myPet.name, choosfood.name)
+
+		myPet.eat(choosfood.energy)
+	} else if *eatFlag != 0 {
+		fmt.Println("Invalid choice! Your pet stayed hungry.")
 	}
 
 	if *versionFlag {

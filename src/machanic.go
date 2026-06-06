@@ -16,7 +16,7 @@ func (p *Pet) eat(eat int) {
 
 func (p *Pet) demage(demage int) {
 	if p.healty > minhungry {
-		p.healty = demage
+		p.healty -= demage
 		if p.healty < minhealthy {
 			p.healty = minhealthy
 		}
