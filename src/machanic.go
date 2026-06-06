@@ -53,7 +53,7 @@ func (p *Pet) status() {
 func (p *Pet) tick(y int) {
 	x := y
 	p.hunger += x
-	if p.hunger <= maxhungry {
+	if p.hunger >= maxhungry {
 		p.hunger = maxhungry
 	}
 }
