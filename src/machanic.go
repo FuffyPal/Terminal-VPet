@@ -14,28 +14,28 @@ func (p *Pet) eat(eat int) {
 	}
 }
 
-func (p *Pet) demage(demage int) {
-	if p.healty > minhealthy {
-		p.healty -= demage
-		if p.healty < minhealthy {
-			p.healty = minhealthy
+func (p *Pet) damage(damage int) {
+	if p.healthy > minhealthy {
+		p.healthy -= damage
+		if p.healthy < minhealthy {
+			p.healthy = minhealthy
 		}
 	}
 }
 
 func (p *Pet) heal(heal int) {
-	if p.healty > minhealthy {
-		p.healty += heal
-		if p.healty > maxhealthy {
-			p.healty = maxhealthy
+	if p.healthy > minhealthy {
+		p.healthy += heal
+		if p.healthy > maxhealthy {
+			p.healthy = maxhealthy
 		}
 	}
 }
 
 func (p *Pet) check() {
-	if p.healty == minhealthy {
+	if p.healthy == minhealthy {
 		p.life = false
-		fmt.Println("Pet is die")
+		fmt.Println("Pet is dead")
 		os.Exit(0)
 	}
 }
@@ -45,7 +45,7 @@ func (p *Pet) status() {
 	fmt.Println("    🐾 Virtual Baby Status 🐾   ")
 	fmt.Println("=================================")
 	fmt.Printf(" 🌟 Name:    %s\n", p.name)
-	fmt.Printf(" ❤️  Healty:  %d / 100\n", p.healty)
+	fmt.Printf(" ❤️  Healthy: %d / 100\n", p.healthy)
 	fmt.Printf(" 🍖 Hunger:   %d / 100\n", p.hunger)
 	fmt.Println("=================================")
 }

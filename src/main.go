@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	version    = "0.5.4"
+	version    = "0.5.5"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -15,10 +15,10 @@ const (
 )
 
 type Pet struct {
-	name   string
-	healty int
-	hunger int
-	life   bool
+	name    string
+	healthy int
+	hunger  int
+	life    bool
 }
 
 type Food struct {
@@ -27,9 +27,9 @@ type Food struct {
 }
 
 func main() {
-	nameFlag := flag.String("name", "", "Pet is name")
-	statusFlag := flag.Bool("status", false, "Pet is status")
-	versionFlag := flag.Bool("version", false, "Apps version")
+	nameFlag := flag.String("name", "", "Pet's name")
+	statusFlag := flag.Bool("status", false, "Pet's status")
+	versionFlag := flag.Bool("version", false, "App's version")
 	eatFlag := flag.Int("eat", 0, "pet eating x(1,2,3,4)")
 	flag.Usage = func() {
 		fmt.Println("\n╔===================================================================╗")
@@ -56,7 +56,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	myPet := Pet{healty: 100, hunger: 0, life: true}
+	myPet := Pet{healthy: 100, hunger: 0, life: true}
 	var foodList = []Food{
 		{name: "Omlet 🍳", energy: 20},
 		{name: "Fish 🐟", energy: 15},
@@ -66,6 +66,7 @@ func main() {
 
 	if *nameFlag != "" {
 		myPet.name = *nameFlag
+		fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.name)
 	}
 
 	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
@@ -82,6 +83,4 @@ func main() {
 		myPet.status()
 		myPet.tick(5)
 	}
-
-	fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.name)
 }
