@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	version    = "0.5.3"
+	version    = "0.5.4"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -40,16 +40,21 @@ func main() {
 		fmt.Println("Options:")
 		fmt.Println("  --name <string>   💡 Sets your pet's name (e.g., --name=pamuk)")
 		fmt.Println("  --status          📊 Shows current stats of your pet and exits")
-		fmt.Println("  --food <1-4>      🍖 Feeds your pet with a food from the market:")
+		fmt.Println("  --eat <1-4>       🍖 Feeds your pet with a food from the market:")
 		fmt.Println("                      [1] Omlet 🍳  [2] Fish 🐟")
 		fmt.Println("                      [3] Meat 🥩   [4] Apple 🍎")
 		fmt.Println("╔===================================================================╗")
 		fmt.Println("║Examples:                                                          ║")
 		fmt.Println("║  go run . --name=boncuk --status                                  ║")
-		fmt.Println("║  go run . --food=1                                                ║")
+		fmt.Println("║  go run . --eat=1                                                 ║")
 		fmt.Println("╚===================================================================╝\n")
 	}
 	flag.Parse()
+
+	if *versionFlag {
+		fmt.Printf("vpet version: %s \n", version)
+		os.Exit(0)
+	}
 
 	myPet := Pet{healty: 100, hunger: 0, life: true}
 	var foodList = []Food{
@@ -63,12 +68,6 @@ func main() {
 		myPet.name = *nameFlag
 	}
 
-	if *statusFlag {
-		myPet.status()
-		myPet.tick(5)
-		return
-	}
-
 	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
 		choosfood := foodList[*eatFlag-1]
 
@@ -79,9 +78,9 @@ func main() {
 		fmt.Println("Invalid choice! Your pet stayed hungry.")
 	}
 
-	if *versionFlag {
-		fmt.Printf("vpet version: %s \n", version)
-		os.Exit(0)
+	if *statusFlag {
+		myPet.status()
+		myPet.tick(5)
 	}
 
 	fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.name)
