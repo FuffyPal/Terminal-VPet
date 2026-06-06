@@ -49,3 +49,11 @@ func (p *Pet) status() {
 	fmt.Printf(" 🍖 Hunger:   %d / 100\n", p.hunger)
 	fmt.Println("=================================")
 }
+
+func (p *Pet) tick(y int) {
+	x := y
+	p.hunger += x
+	if p.hunger <= maxhungry {
+		p.hunger = maxhungry
+	}
+}
