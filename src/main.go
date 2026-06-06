@@ -3,11 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 )
 
 const (
-	version    = "0.6.0"
+	version    = "0.6.1"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -53,7 +52,6 @@ func main() {
 
 	if *versionFlag {
 		fmt.Printf("vpet version: %s \n", version)
-		os.Exit(0)
 	}
 
 	myPet := Pet{healthy: 100, hunger: 0, life: true}
