@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	version    = "0.5.0"
+	version    = "0.5.1"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -65,6 +65,7 @@ func main() {
 
 	if *statusFlag {
 		myPet.status()
+		myPet.tick(5)
 		return
 	}
 
