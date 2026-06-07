@@ -90,6 +90,12 @@ func main() {
 
 	myPet.tick(5)
 
+	if !myPet.Life {
+		myPet.status()
+		err = SavePet(saveFilePath, myPet)
+		return
+	}
+
 	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
 		choosfood := foodList[*eatFlag-1]
 
