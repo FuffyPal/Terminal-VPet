@@ -29,3 +29,13 @@ build_job:
     expire_in: 30 days
     paths:
       - build/
+      
+upload_to_registry:
+  stage: upload
+  image: curlimages/curl:latest
+  script:
+    - curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/pet_linux "${REGISTRY_URL}/pet_linux"
+    - curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/pet_linux "${REGISTRY_URL}/pet_linux_arm64"
+    - curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/pet_windows.exe "${REGISTRY_URL}/pet_windows.exe"
+    - curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/pet_mac_intel "${REGISTRY_URL}/pet_mac_intel"
+    - curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/pet_mac_arm64 "${REGISTRY_URL}/pet_mac_arm64"
