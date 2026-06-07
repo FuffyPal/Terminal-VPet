@@ -1,0 +1,31 @@
+stages:
+  - build
+
+build_job:
+  stage: build
+  image: golang:1.26.3-alpine
+
+  before_script:
+    - apk add --no-cache git coreutils
+
+  script:
+    #  LINUX for COMPILE
+    - GOOS=linux GOARCH=amd64 go build -o build/pet_linux ./src
+    -
+    #  LINUX for COMPILE (ARM)
+    - GOOS=linux GOARCH=arm64 go build -o build/pet_linux_arm64 ./src
+
+    #  WINDOWS for COMPILE (.exe)
+    - GOOS=windows GOARCH=amd64 go build -o build/pet_windows.exe ./src
+
+    #  macOS for COMPILE (Intel CPUs)
+    - GOOS=darwin GOARCH=amd64 go build -o build/pet_mac_intel ./src
+
+    #  macOS for COMPILE (Apple Silicon - M1/M2/M3 CPUs)
+    - GOOS=darwin GOARCH=arm64 go build -o build/pet_mac_arm64 ./src
+
+  artifacts:
+    name: "vpet-builds-$CI_COMMIT_REF_NAME"
+    expire_in: 1 week
+    paths:
+      - build/
