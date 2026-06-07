@@ -26,6 +26,6 @@ build_job:
 
   artifacts:
     name: "vpet-builds-$CI_COMMIT_REF_NAME"
-    expire_in: 1 week
+    expire_in: 30 days
     paths:
       - build/
