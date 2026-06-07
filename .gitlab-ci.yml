@@ -2,6 +2,9 @@ stages:
   - build
   - upload
 
+variables:
+  REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/vpet/${CI_COMMIT_SHORT_SHA}"
+
 build_job:
   stage: build
   image: golang:1.26.3-alpine
