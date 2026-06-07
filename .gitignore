@@ -1,3 +1,5 @@
 vpet_main
 vpet
 pet
+*.json
+!!.devcontainer/*.json

@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	version    = "0.7.0"
+	version    = "0.8.0"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -15,10 +15,10 @@ const (
 )
 
 type Pet struct {
-	name    string
-	healthy int
-	hunger  int
-	life    bool
+	Name    string `json:"name"`
+	Healthy int    `json:"healthy"`
+	Hunger  int    `json:"hunger"`
+	Life    bool   `json:"life"`
 }
 
 type Food struct {
@@ -31,6 +31,7 @@ func main() {
 	statusFlag := flag.Bool("status", false, "Pet's status")
 	versionFlag := flag.Bool("version", false, "App's version")
 	eatFlag := flag.Int("eat", 0, "pet eating x(1,2,3,4)")
+	savefileFlag := flag.String("savefile", "", "Custom path for save file")
 	flag.Usage = func() {
 		fmt.Println("\n╔===================================================================╗")
 		fmt.Println("║       🐾  VIRTUAL PET GAME (", version, ") CLI HELP  🐾                 ║")
@@ -43,6 +44,7 @@ func main() {
 		fmt.Println("  --eat <1-4>       🍖 Feeds your pet with a food from the market:")
 		fmt.Println("                      [1] Omlet 🍳  [2] Fish 🐟")
 		fmt.Println("                      [3] Meat 🥩   [4] Apple 🍎")
+		fmt.Println("  --savefile <path> 💾 Custom path for save file")
 		fmt.Println("╔===================================================================╗")
 		fmt.Println("║Examples:                                                          ║")
 		fmt.Println("║  go run . --name=boncuk --status                                  ║")
@@ -51,20 +53,29 @@ func main() {
 	}
 	flag.Parse()
 
-	saveDir, err := GetSaveDir()
-	if err != nil {
-		fmt.Println("Hata:", err)
-		return
-	}
-	saveFilePath := filepath.Join(saveDir, "savefile.dat")
-
-	fmt.Println(saveFilePath)
-
 	if *versionFlag {
 		fmt.Printf("vpet version: %s \n", version)
+		return
 	}
 
-	myPet := Pet{healthy: 100, hunger: 0, life: true}
+	var saveFilePath string
+	if *savefileFlag != "" {
+		saveFilePath = *savefileFlag
+	} else {
+		saveDir, err := GetSaveDir()
+		if err != nil {
+			fmt.Println("Hata:", err)
+			return
+		}
+		saveFilePath = filepath.Join(saveDir, "savefile.json")
+	}
+
+	myPet, err := LoadPet(saveFilePath)
+	if err != nil {
+		fmt.Println("Hata (LoadPet):", err)
+		return
+	}
+
 	var foodList = []Food{
 		{name: "Omlet 🍳", energy: 20},
 		{name: "Fish 🐟", energy: 15},
@@ -73,14 +84,14 @@ func main() {
 	}
 
 	if *nameFlag != "" {
-		myPet.name = *nameFlag
-		fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.name)
+		myPet.Name = *nameFlag
+		fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.Name)
 	}
 
 	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
 		choosfood := foodList[*eatFlag-1]
 
-		fmt.Printf("\nYou fed %s with %s!\n", myPet.name, choosfood.name)
+		fmt.Printf("\nYou fed %s with %s!\n", myPet.Name, choosfood.name)
 
 		myPet.eat(choosfood.energy)
 	} else if *eatFlag != 0 {
@@ -90,5 +101,10 @@ func main() {
 	if *statusFlag {
 		myPet.status()
 		myPet.tick(5)
+	}
+
+	err = SavePet(saveFilePath, myPet)
+	if err != nil {
+		fmt.Println("Hata (SavePet):", err)
 	}
 }
