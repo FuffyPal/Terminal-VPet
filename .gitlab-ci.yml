@@ -11,7 +11,7 @@ build_job:
   script:
     #  LINUX for COMPILE
     - GOOS=linux GOARCH=amd64 go build -o build/pet_linux ./src
-    -
+
     #  LINUX for COMPILE (ARM)
     - GOOS=linux GOARCH=arm64 go build -o build/pet_linux_arm64 ./src
 
