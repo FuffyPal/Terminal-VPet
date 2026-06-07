@@ -15,7 +15,7 @@ func (p *Pet) eat(eat int) {
 }
 
 func (p *Pet) damage(damage int) {
-	if p.Healthy > minhealthy {
+	if p.Hunger > 70 {
 		p.Healthy -= damage
 		if p.Healthy < minhealthy {
 			p.Healthy = minhealthy
@@ -24,7 +24,7 @@ func (p *Pet) damage(damage int) {
 }
 
 func (p *Pet) heal(heal int) {
-	if p.Healthy > minhealthy {
+	if p.Hunger < 30 {
 		p.Healthy += heal
 		if p.Healthy > maxhealthy {
 			p.Healthy = maxhealthy
@@ -41,13 +41,25 @@ func (p *Pet) check() {
 }
 
 func (p *Pet) status() {
-	fmt.Println("\n=================================")
-	fmt.Println("    🐾 Virtual Baby Status 🐾   ")
-	fmt.Println("=================================")
-	fmt.Printf(" 🌟 Name:    %s\n", p.Name)
-	fmt.Printf(" ❤️  Healthy: %d / 100\n", p.Healthy)
-	fmt.Printf(" 🍖 Hunger:   %d / 100\n", p.Hunger)
-	fmt.Println("=================================")
+	p.check()
+	if p.Life == true {
+		fmt.Println("\n=================================")
+		fmt.Println("    🐾 Virtual Baby Status 🐾   ")
+		fmt.Println("=================================")
+		fmt.Printf(" 🌟 Name:    %s\n", p.Name)
+		fmt.Printf(" ❤️  Healthy: %d / 100\n", p.Healthy)
+		fmt.Printf(" 🍖 Hunger:   %d / 100\n", p.Hunger)
+		fmt.Println("=================================")
+	} else {
+		fmt.Println("\n=================================")
+		fmt.Println("    ✨ 🐾 Rainbow Bridge 🐾 ✨   ")
+		fmt.Println("=================================")
+		fmt.Printf("  🌈 %s is on the clouds now...\n", p.Name)
+		fmt.Println("  💤 Sleeping peacefully in heaven. ")
+		fmt.Println("  🍖 Tummy is full, no more pain. ")
+		fmt.Println("=================================")
+		fmt.Println("  ✨ Try again for a new adventure! ✨")
+	}
 }
 
 func (p *Pet) tick(y int) {
@@ -57,4 +69,6 @@ func (p *Pet) tick(y int) {
 		p.Hunger = maxhungry
 	}
 	p.check()
+	p.damage(10)
+	p.heal(9)
 }

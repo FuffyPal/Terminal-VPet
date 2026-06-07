@@ -64,7 +64,7 @@ func main() {
 	} else {
 		saveDir, err := GetSaveDir()
 		if err != nil {
-			fmt.Println("Hata:", err)
+			fmt.Println("Err:", err)
 			return
 		}
 		saveFilePath = filepath.Join(saveDir, "savefile.json")
@@ -72,7 +72,7 @@ func main() {
 
 	myPet, err := LoadPet(saveFilePath)
 	if err != nil {
-		fmt.Println("Hata (LoadPet):", err)
+		fmt.Println("Err (LoadPet):", err)
 		return
 	}
 
@@ -88,6 +88,8 @@ func main() {
 		fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.Name)
 	}
 
+	myPet.tick(5)
+
 	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
 		choosfood := foodList[*eatFlag-1]
 
@@ -100,11 +102,10 @@ func main() {
 
 	if *statusFlag {
 		myPet.status()
-		myPet.tick(5)
 	}
 
 	err = SavePet(saveFilePath, myPet)
 	if err != nil {
-		fmt.Println("Hata (SavePet):", err)
+		fmt.Println("Err (SavePet):", err)
 	}
 }
