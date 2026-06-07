@@ -3,10 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"path/filepath"
 )
 
 const (
-	version    = "0.6.1"
+	version    = "0.7.0"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -49,6 +50,15 @@ func main() {
 		fmt.Println("╚===================================================================╝\n")
 	}
 	flag.Parse()
+
+	saveDir, err := GetSaveDir()
+	if err != nil {
+		fmt.Println("Hata:", err)
+		return
+	}
+	saveFilePath := filepath.Join(saveDir, "savefile.dat")
+
+	fmt.Println(saveFilePath)
 
 	if *versionFlag {
 		fmt.Printf("vpet version: %s \n", version)
