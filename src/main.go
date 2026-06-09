@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	version    = "0.8.2"
+	version    = "0.8.3"
 	maxhealthy = 100
 	minhealthy = 0
 	maxhungry  = 100
@@ -93,7 +93,9 @@ func main() {
 	if !myPet.Life {
 		myPet.status()
 		err = SavePet(saveFilePath, myPet)
-		return
+		if err != nil {
+			fmt.Println("Err (SavePet):", err)
+		}
 	}
 
 	if *eatFlag >= 1 && *eatFlag <= len(foodList) {
