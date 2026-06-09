@@ -3,3 +3,4 @@ vpet
 pet
 *.json
 !!.devcontainer/*.json
+.go
