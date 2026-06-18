@@ -11,12 +11,12 @@ COPY src/ ./src/
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o pet ./src
 
-FROM docker.io/library/alpine:latest
+FROM scratch
 
-RUN apk add --no-cache ca-certificates
+ENV HOME=/root
 
 WORKDIR /root/
 
 COPY --from=builder /app/pet .
 
-CMD ["./pet"]
+ENTRYPOINT ["./pet"]
