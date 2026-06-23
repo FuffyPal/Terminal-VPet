@@ -5,16 +5,18 @@ stages:
 
 variables:
   REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/vpet/${CI_COMMIT_SHORT_SHA}"
+  GO_VERSION: "1.26.3"
+
 
 test_job:
   stage: test
-  image: golang:1.26.3-alpine
+  image: golang:${GO_VERSION}-alpine
   script:
     - go test ./src/...
 
 build_job:
   stage: build
-  image: golang:1.26.3-alpine
+  image: golang:${GO_VERSION}-alpine
 
   before_script:
     - apk add --no-cache git coreutils
