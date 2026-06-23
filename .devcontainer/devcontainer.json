@@ -4,9 +4,13 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
   },
-  "name": "Go",
+  "name": "Go Development ENV",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
   "image": "mcr.microsoft.com/devcontainers/go:2-1.26-trixie",
+  "runArgs": [
+    "--security-opt", "label=disable"
+   ],
+
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
