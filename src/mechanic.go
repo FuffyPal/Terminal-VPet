@@ -4,6 +4,13 @@ import (
 	"fmt"
 )
 
+const (
+	maxhealthy = 100
+	minhealthy = 0
+	maxhungry  = 100
+	minhungry  = 0
+)
+
 func (p *Pet) eat(eat int) {
 	if p.Life == true {
 		if p.Hunger > minhungry {
