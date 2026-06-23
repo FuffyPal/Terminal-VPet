@@ -7,11 +7,7 @@ import (
 )
 
 const (
-	version    = "0.8.3"
-	maxhealthy = 100
-	minhealthy = 0
-	maxhungry  = 100
-	minhungry  = 0
+	version = "0.8.3"
 )
 
 type Pet struct {
@@ -33,11 +29,11 @@ func main() {
 	eatFlag := flag.Int("eat", 0, "pet eating x(1,2,3,4)")
 	savefileFlag := flag.String("savefile", "", "Custom path for save file")
 	flag.Usage = func() {
-		fmt.Println("\n╔===================================================================╗")
-		fmt.Println("║       🐾  VIRTUAL PET GAME (", version, ") CLI HELP  🐾                 ║")
+		fmt.Println("╔===================================================================╗")
+		fmt.Println("║       🐾  VIRTUAL PET GAME (", version, ") CLI HELP  🐾                   ║")
 		fmt.Println("╚===================================================================╝")
 		fmt.Println("Usage:")
-		fmt.Println("  go run . [options]\n")
+		fmt.Println("  go run . [options]")
 		fmt.Println("Options:")
 		fmt.Println("  --name <string>   💡 Sets your pet's name (e.g., --name=pamuk)")
 		fmt.Println("  --status          📊 Shows current stats of your pet and exits")
@@ -49,7 +45,7 @@ func main() {
 		fmt.Println("║Examples:                                                          ║")
 		fmt.Println("║  go run . --name=boncuk --status                                  ║")
 		fmt.Println("║  go run . --eat=1                                                 ║")
-		fmt.Println("╚===================================================================╝\n")
+		fmt.Println("╚===================================================================╝")
 	}
 	flag.Parse()
 
