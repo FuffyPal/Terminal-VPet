@@ -10,7 +10,7 @@ test_job:
   stage: test
   image: golang:1.26.3-alpine
   script:
-    - go test ./src/... || (echo "failed"; exit 1)
+    - go test ./src/...
 
 build_job:
   stage: build
