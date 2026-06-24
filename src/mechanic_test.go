@@ -2,6 +2,7 @@ package main
 
 import (
 	"testing"
+	"time"
 )
 
 func TestEat(t *testing.T) {
@@ -29,6 +30,17 @@ func TestDamage(t *testing.T) {
 
 	if my.Healthy != expect {
 		t.Errorf("The demage() func didnt reduce Healthy correctly! Expected: %d, Actual: %d", expect, my.Healthy)
+	}
+}
+
+func TestRealtime(t *testing.T) {
+	my := &Pet{
+		Current_Time: "",
+	}
+	my.CurrentTime()
+	expect := time.Now().Format("2006-01-02 15:04:05")
+	if my.Current_Time != expect {
+		t.Errorf("the Current_Time() func didnt realtime correctly! Expected: %s, Actual: %s", expect, my.Current_Time)
 	}
 }
 

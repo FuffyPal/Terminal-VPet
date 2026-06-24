@@ -12,11 +12,11 @@ const (
 )
 
 type Pet struct {
-	Name    string `json:"name"`
-	Healthy int    `json:"healthy"`
-	Hunger  int    `json:"hunger"`
-	Life    bool   `json:"life"`
-	//TODO Add data current time [realtime]
+	Name         string `json:"name"`
+	Healthy      int    `json:"healthy"`
+	Hunger       int    `json:"hunger"`
+	Life         bool   `json:"life"`
+	Current_Time string `json:"currenttime"`
 	//TODO Add game time
 }
 
@@ -78,11 +78,6 @@ func main() {
 		return
 	}
 
-	if myPet.Name == "" {
-		fmt.Println("pls: enter name")
-		os.Exit(1)
-	}
-
 	var foodList = []Food{
 		{name: "Omlet 🍳", energy: 20, poison: 0},
 		{name: "Fish 🐟", energy: 15, poison: 0},
@@ -96,6 +91,11 @@ func main() {
 	if *nameFlag != "" {
 		myPet.Name = *nameFlag
 		fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.Name)
+	}
+
+	if myPet.Name == "" {
+		fmt.Println("pls: enter name")
+		os.Exit(1)
 	}
 
 	//TODO add half realtime
@@ -123,6 +123,8 @@ func main() {
 	if *statusFlag {
 		myPet.status()
 	}
+
+	myPet.CurrentTime()
 
 	err = SavePet(saveFilePath, myPet)
 	if err != nil {

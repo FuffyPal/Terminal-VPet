@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 const (
@@ -60,6 +61,10 @@ func (p *Pet) check() {
 	if p.Hunger < minhungry {
 		p.Hunger = minhungry
 	}
+}
+
+func (p *Pet) CurrentTime() {
+	p.Current_Time = time.Now().Format("2006-01-02 15:04:05")
 }
 
 func (p *Pet) status() {
