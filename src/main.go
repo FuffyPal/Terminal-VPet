@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	version = "0.8.9"
+	version = "0.9.0"
 )
 
 type Pet struct {
