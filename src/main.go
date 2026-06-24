@@ -44,10 +44,8 @@ func main() {
 		fmt.Println("  --eat <1-4>       🍖 Feeds your pet with a food from the market:")
 		fmt.Println("                      [1] Omlet 🍳  [2] Fish 🐟")
 		fmt.Println("                      [3] Meat 🥩   [4] Apple 🍎")
-		//TODO Add Spaghetti
-		//TODO Add Pizza
-		//TODO Add Hamburger
-		//TODO Add Chips
+		fmt.Println("                      [5] Spaghetti 🍝   [6] Pizza 🍕")
+		fmt.Println("                      [7] Hamburger 🍔   [8] Chips 🍟")
 		fmt.Println("  --savefile <path> 💾 Custom path for save file")
 		fmt.Println("╔===================================================================╗")
 		fmt.Println("║Examples:                                                          ║")
@@ -90,10 +88,10 @@ func main() {
 		{name: "Fish 🐟", energy: 15, poison: 0},
 		{name: "Meat 🥩", energy: 35, poison: 0},
 		{name: "Apple 🍎", energy: 5, poison: 0},
-		//TODO Add Spaghetti
-		//TODO Add Pizza
-		//TODO Add Hamburger
-		//TODO Add Chips
+		{name: "Spaghetti 🍝", energy: 30, poison: 0},
+		{name: "Pizza 🍕", energy: 40, poison: 0},
+		{name: "Hamburger 🍔", energy: 20, poison: 0},
+		{name: "Chips 🍟", energy: 10, poison: 0},
 	}
 	if *nameFlag != "" {
 		myPet.Name = *nameFlag
