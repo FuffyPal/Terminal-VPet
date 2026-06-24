@@ -3,11 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 	"path/filepath"
 )
 
 const (
-	version = "0.8.4"
+	version = "0.8.5"
 )
 
 type Pet struct {
@@ -70,6 +71,11 @@ func main() {
 	if err != nil {
 		fmt.Println("Err (LoadPet):", err)
 		return
+	}
+
+	if myPet.Name == "" {
+		fmt.Println("pls: enter name")
+		os.Exit(1)
 	}
 
 	var foodList = []Food{
