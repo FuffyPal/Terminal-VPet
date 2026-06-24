@@ -16,11 +16,14 @@ type Pet struct {
 	Healthy int    `json:"healthy"`
 	Hunger  int    `json:"hunger"`
 	Life    bool   `json:"life"`
+	//TODO Add data current time [realtime]
+	//TODO Add game time
 }
 
 type Food struct {
 	name   string
 	energy int
+	poison int
 }
 
 func main() {
@@ -41,6 +44,10 @@ func main() {
 		fmt.Println("  --eat <1-4>       🍖 Feeds your pet with a food from the market:")
 		fmt.Println("                      [1] Omlet 🍳  [2] Fish 🐟")
 		fmt.Println("                      [3] Meat 🥩   [4] Apple 🍎")
+		//TODO Add Spaghetti
+		//TODO Add Pizza
+		//TODO Add Hamburger
+		//TODO Add Chips
 		fmt.Println("  --savefile <path> 💾 Custom path for save file")
 		fmt.Println("╔===================================================================╗")
 		fmt.Println("║Examples:                                                          ║")
@@ -79,17 +86,21 @@ func main() {
 	}
 
 	var foodList = []Food{
-		{name: "Omlet 🍳", energy: 20},
-		{name: "Fish 🐟", energy: 15},
-		{name: "Meat 🥩", energy: 35},
-		{name: "Apple 🍎", energy: 5},
+		{name: "Omlet 🍳", energy: 20, poison: 0},
+		{name: "Fish 🐟", energy: 15, poison: 0},
+		{name: "Meat 🥩", energy: 35, poison: 0},
+		{name: "Apple 🍎", energy: 5, poison: 0},
+		//TODO Add Spaghetti
+		//TODO Add Pizza
+		//TODO Add Hamburger
+		//TODO Add Chips
 	}
-
 	if *nameFlag != "" {
 		myPet.Name = *nameFlag
 		fmt.Printf("\n✨ %s has successfully hatched! Let the adventure begin...\n", myPet.Name)
 	}
 
+	//TODO add half realtime
 	myPet.tick(5)
 
 	if !myPet.Life {
@@ -106,6 +117,7 @@ func main() {
 		fmt.Printf("\nYou fed %s with %s!\n", myPet.Name, choosfood.name)
 
 		myPet.eat(choosfood.energy)
+		myPet.damage(choosfood.poison)
 	} else if *eatFlag != 0 {
 		fmt.Println("Invalid choice! Your pet stayed hungry.")
 	}
