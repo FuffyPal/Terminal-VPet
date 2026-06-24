@@ -64,7 +64,7 @@ func (p *Pet) check() {
 }
 
 func (p *Pet) CurrentTime() {
-	p.Current_Time = time.Now().Format("2006-01-02 15:04:05")
+	p.Time = time.Now().Format("2006-01-02 15:04:05")
 }
 
 func (p *Pet) status() {
@@ -90,10 +90,23 @@ func (p *Pet) status() {
 
 func (p *Pet) tick(y int) {
 	p.Hunger += y
-	if p.Hunger >= maxhungry {
-		p.Hunger = maxhungry
+	//if p.Hunger >= maxhungry {
+	//	p.Hunger = maxhungry
+	//}
+	//p.damage(10)
+	//p.heal(5)
+	//p.check()
+}
+
+func (p *Pet) TickCalculation() {
+	layout := "2006-01-02 15:04:05"
+
+	pastTime, _ := time.Parse(layout, p.Time)
+	currentStr := time.Now().Format(layout)
+	currentTime, _ := time.Parse(layout, currentStr)
+
+	difference := currentTime.Sub(pastTime)
+	for i := difference.Minutes(); i >= 5; i -= 5 {
+		p.tick(5)
 	}
-	p.damage(10)
-	p.heal(5)
-	p.check()
 }

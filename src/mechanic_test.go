@@ -35,12 +35,26 @@ func TestDamage(t *testing.T) {
 
 func TestRealtime(t *testing.T) {
 	my := &Pet{
-		Current_Time: "",
+		Time: "",
 	}
 	my.CurrentTime()
 	expect := time.Now().Format("2006-01-02 15:04:05")
-	if my.Current_Time != expect {
-		t.Errorf("the Current_Time() func didnt realtime correctly! Expected: %s, Actual: %s", expect, my.Current_Time)
+	if my.Time != expect {
+		t.Errorf("the Current_Time() func didnt realtime correctly! Expected: %s, Actual: %s", expect, my.Time)
+	}
+}
+
+func TestCalculationTime(t *testing.T) {
+	pastTime := time.Now().Add(-23 * time.Minute)
+	my := &Pet{
+		Time:   pastTime.Format("2006-01-02 15:04:05"),
+		Hunger: 100,
+	}
+
+	my.TickCalculation()
+	expect := 100 + (4 * 5)
+	if my.Hunger != expect {
+		t.Errorf("the TickCalculation() func didnt realtime correctly! Expected: %d, Actual: %d", expect, my.Hunger)
 	}
 }
 

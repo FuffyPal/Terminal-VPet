@@ -8,16 +8,15 @@ import (
 )
 
 const (
-	version = "0.9.0"
+	version = "1.0.0"
 )
 
 type Pet struct {
-	Name         string `json:"name"`
-	Healthy      int    `json:"healthy"`
-	Hunger       int    `json:"hunger"`
-	Life         bool   `json:"life"`
-	Current_Time string `json:"currenttime"`
-	//TODO Add game time
+	Name    string `json:"name"`
+	Healthy int    `json:"healthy"`
+	Hunger  int    `json:"hunger"`
+	Life    bool   `json:"life"`
+	Time    string `json:"time"`
 }
 
 type Food struct {
@@ -78,6 +77,8 @@ func main() {
 		return
 	}
 
+	myPet.TickCalculation()
+
 	var foodList = []Food{
 		{name: "Omlet 🍳", energy: 20, poison: 0},
 		{name: "Fish 🐟", energy: 15, poison: 0},
@@ -98,9 +99,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	//TODO add half realtime
-	myPet.tick(5)
-
 	if !myPet.Life {
 		myPet.status()
 		err = SavePet(saveFilePath, myPet)
@@ -120,11 +118,11 @@ func main() {
 		fmt.Println("Invalid choice! Your pet stayed hungry.")
 	}
 
+	myPet.CurrentTime()
+
 	if *statusFlag {
 		myPet.status()
 	}
-
-	myPet.CurrentTime()
 
 	err = SavePet(saveFilePath, myPet)
 	if err != nil {

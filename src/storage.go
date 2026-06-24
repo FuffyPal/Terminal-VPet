@@ -58,11 +58,11 @@ func LoadPet(filePath string) (*Pet, error) {
 	if err != nil {
 		if os.IsNotExist(err) {
 			defaultPet := &Pet{
-				Name:         "",
-				Healthy:      100,
-				Hunger:       0,
-				Life:         true,
-				Current_Time: "",
+				Name:    "",
+				Healthy: 100,
+				Hunger:  0,
+				Life:    true,
+				Time:    "",
 			}
 			err = SavePet(filePath, defaultPet)
 			if err != nil {
