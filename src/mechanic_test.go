@@ -48,11 +48,11 @@ func TestCalculationTime(t *testing.T) {
 	pastTime := time.Now().Add(-23 * time.Minute)
 	my := &Pet{
 		Time:   pastTime.Format("2006-01-02 15:04:05"),
-		Hunger: 100,
+		Hunger: 80,
 	}
 
 	my.TickCalculation()
-	expect := 100 + (4 * 5)
+	expect := 80 + (4 * 5)
 	if my.Hunger != expect {
 		t.Errorf("the TickCalculation() func didnt realtime correctly! Expected: %d, Actual: %d", expect, my.Hunger)
 	}

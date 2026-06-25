@@ -101,6 +101,9 @@ func (p *Pet) tick(y int) {
 func (p *Pet) TickCalculation() {
 	layout := "2006-01-02 15:04:05"
 
+	if p.Time == "" {
+		return
+	}
 	pastTime, _ := time.Parse(layout, p.Time)
 	currentStr := time.Now().Format(layout)
 	currentTime, _ := time.Parse(layout, currentStr)
