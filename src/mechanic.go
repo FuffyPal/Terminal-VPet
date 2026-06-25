@@ -90,12 +90,12 @@ func (p *Pet) status() {
 
 func (p *Pet) tick(y int) {
 	p.Hunger += y
-	//if p.Hunger >= maxhungry {
-	//	p.Hunger = maxhungry
-	//}
-	//p.damage(10)
-	//p.heal(5)
-	//p.check()
+	if p.Hunger >= maxhungry {
+		p.Hunger = maxhungry
+	}
+	p.damage(10)
+	p.heal(5)
+	p.check()
 }
 
 func (p *Pet) TickCalculation() {
