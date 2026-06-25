@@ -19,6 +19,58 @@ func TestEat(t *testing.T) {
 	}
 }
 
+func TestFoodEat(t *testing.T) {
+	for i := 8; i > 0; i-- {
+		c := i
+		f := &Food{
+			name:   "",
+			energy: 0,
+			poison: 0,
+		}
+		my := &Pet{
+			Life:   true,
+			Hunger: 600,
+		}
+		var foodList = []Food{
+			{name: "Omlet 🍳", energy: 20, poison: 0},
+			{name: "Fish 🐟", energy: 15, poison: 0},
+			{name: "Meat 🥩", energy: 35, poison: 0},
+			{name: "Apple 🍎", energy: 5, poison: 0},
+			{name: "Spaghetti 🍝", energy: 30, poison: 0},
+			{name: "Pizza 🍕", energy: 40, poison: 0},
+			{name: "Hamburger 🍔", energy: 20, poison: 0},
+			{name: "Chips 🍟", energy: 10, poison: 0},
+		}
+
+		choosfood := foodList[c-1]
+		t.Logf("\nYou fed %s with %s!\n", f.name, choosfood.name)
+		my.eat(choosfood.energy)
+
+		var expectlist = []struct {
+			expecte int
+		}{
+			{expecte: 580}, // c = 1 (Omlet)
+			{expecte: 585}, // c = 2 (Fish)
+			{expecte: 565}, // c = 3 (Meat)
+			{expecte: 595}, // c = 4 (Apple)
+			{expecte: 570}, // c = 5 (Spaghetti)
+			{expecte: 560}, // c = 6 (Pizza)
+			{expecte: 580}, // c = 7 (Hamburger)
+			{expecte: 590}, // c = 8 (Chips)
+		}
+
+		var choosexpect struct {
+			expecte int
+		}
+
+		choosexpect = expectlist[c-1]
+
+		if my.Hunger != choosexpect.expecte {
+			t.Errorf("The eat() function didn't reduce hunger correctly! Expected: %d, Actual: %d", choosexpect.expecte, my.Hunger)
+		}
+	}
+}
+
 func TestDamage(t *testing.T) {
 	my := &Pet{
 		Life:    true,
