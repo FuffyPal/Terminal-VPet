@@ -48,8 +48,8 @@ That's it — your adventure begins!
 ## 💬 Examples
 
 ```bash
-go run . --name=boncuk --status
-go run . --eat=1
+go run ./src  --name=boncuk --status
+go run ./src  --eat=1
 ```
 
 ## ⚠️ A Gentle Warning About Flag Order & Combinations
@@ -58,10 +58,10 @@ Here's the cozy little catch you need to know before you start playing: **the or
 
 When you run the app for the very first time (no save file exists yet), your pet has **no name**. The program checks for a name *before* it lets you do anything else — including feeding or checking status. So:
 
-- ❌ `go run . --eat=1` → on a brand-new pet, this will print `pls: enter name` and exit immediately. Your poor pet doesn't even get to eat its first meal!
-- ❌ `go run . --status` → same story, it'll exit before showing any stats, because there's no name yet.
-- ✅ `go run . --name=boncuk` → this works! Your pet hatches with a name. 🐾
-- ✅ `go run . --name=boncuk --eat=1` → this works too — name gets set *first*, then your pet happily eats. 🍳
+- ❌ `go run ./src  --eat=1` → on a brand-new pet, this will print `pls: enter name` and exit immediately. Your poor pet doesn't even get to eat its first meal!
+- ❌ `go run ./src  --status` → same story, it'll exit before showing any stats, because there's no name yet.
+- ✅ `go run ./src  --name=boncuk` → this works! Your pet hatches with a name. 🐾
+- ✅ `go run ./src  --name=boncuk --eat=1` → this works too — name gets set *first*, then your pet happily eats. 🍳
 
 **The rule of thumb:** always include `--name` together with your other flags until your pet has been named at least once. After that first successful run, the name is saved, so on every future run you're free to use `--eat`, `--status`, etc. on their own. 🎉
 
@@ -70,8 +70,8 @@ When you run the app for the very first time (no save file exists yet), your pet
 go run . --name=pamuk
 
 # Every run after that — no need for --name anymore
-go run . --eat=3
-go run . --status
+go run ./src  --eat=3
+go run ./src  --status
 ```
 
 Think of it like adopting a pet in real life — you have to give it a name before you can feed it. 🐶💕
@@ -81,7 +81,7 @@ Think of it like adopting a pet in real life — you have to give it a name befo
 By default, your pet's data is saved to a system-appropriate location. Want to keep multiple pets or store the save somewhere specific? Use:
 
 ```bash
-go run . --name=pamuk --savefile=./my-pet-save.json
+go run ./src  --name=pamuk --savefile=./my-pet-save.json
 ```
 
 ## 🐛 Known Quirk
